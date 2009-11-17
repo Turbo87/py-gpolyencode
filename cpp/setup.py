@@ -7,7 +7,7 @@ except:
 
 setup(name='cGPolyEncode',
     version='0.1.0',
-    description="Google Maps Polyline encoding (C extension)",
+    description="Google Maps Polyline encoding (C++ extension)",
     long_description="Encode line & polygon coordinates for use in Google Maps.",
     author='Robert Coup',
     author_email='robert.coup@koordinates.com',
