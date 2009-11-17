@@ -15,7 +15,7 @@ setup(name='cGPolyEncode',
     keywords='gis,geospatial,google-maps,gmaps,mapping',
     url='http://code.google.com/p/py-gpolyencode/',
     ext_modules=[
-        Extension("cgpolyencode", ["gpolyencode_py.cpp", "GPolyEncoder.cpp"])
+        Extension("cgpolyencode", ["gpolyencode_py.cpp", "GPolyEncoder.cpp"]),
     ],
     classifiers=[
         'Development Status :: 4 - Beta',

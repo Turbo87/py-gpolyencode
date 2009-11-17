@@ -14,7 +14,7 @@ setup(name='GPolyEncode',
     provides=['gpolyencode'],
     keywords='gis,geospatial,google-maps,gmaps,mapping',
     url='http://code.google.com/p/py-gpolyencode/',
-    packages=['gpolyencode'],
+    py_modules=['gpolyencode'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
