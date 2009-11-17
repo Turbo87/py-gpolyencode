@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <memory>
 
 class GPolyEncoder {
 
