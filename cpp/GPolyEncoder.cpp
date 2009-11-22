@@ -6,11 +6,14 @@
 using namespace std;
 
 GPolyEncoder::GPolyEncoder(int numLevels, int zoomFactor, double threshold, bool forceEndpoints)
-    : numLevels(numLevels), zoomFactor(zoomFactor), threshold(threshold), forceEndpoints(forceEndpoints) 
+    : numLevels(numLevels), 
+    zoomFactor(zoomFactor), 
+    threshold(threshold), 
+    forceEndpoints(forceEndpoints),
+    zoomLevelBreaks(new double[numLevels])
     {
-        zoomLevelBreaks = new double[numLevels];
-        for (int i=0; i<numLevels; i++) {
-            zoomLevelBreaks[i] = threshold * pow((double)zoomFactor, numLevels - i - 1);
+        for (int i=0; i<numLevels; ++i) {
+            zoomLevelBreaks[i] = threshold * pow(static_cast<double> (zoomFactor), numLevels - i - 1);
         }
     }
 
@@ -63,7 +66,7 @@ auto_ptr<pair<string, string> > GPolyEncoder::dpEncode(vector<pair<double, doubl
  * segment [p1,p2]. This could probably be replaced with something that is a
  * bit more numerically stable.
  */
-double GPolyEncoder::distance(pair<double,double>& p0, pair<double,double>& p1, pair<double,double>& p2) {
+double GPolyEncoder::distance(const pair<double,double>& p0, const pair<double,double>& p1, const pair<double,double>& p2) const {
     double u, out = 0.0;
 
     if (p1.second == p2.second && p1.first == p2.first) {
@@ -86,7 +89,7 @@ double GPolyEncoder::distance(pair<double,double>& p0, pair<double,double>& p1, 
     return out;
 }
 
-string GPolyEncoder::encodeSignedNumber(int num) {
+string GPolyEncoder::encodeSignedNumber(int num) const {
     int sgn_num = num << 1;
     if (num < 0) {
         sgn_num = ~(sgn_num);
@@ -94,17 +97,17 @@ string GPolyEncoder::encodeSignedNumber(int num) {
     return (encodeNumber(sgn_num));
 }
 
-string GPolyEncoder::encodeNumber(int num) {
+string GPolyEncoder::encodeNumber(int num) const {
     ostringstream encodeString;
 
     while (num >= 0x20) {
         int nextValue = (0x20 | (num & 0x1f)) + 63;
-        encodeString << ((char) (nextValue));
+        encodeString << (static_cast<char> (nextValue));
         num >>= 5;
     }
 
     num += 63;
-    encodeString << ((char) (num));
+    encodeString << (static_cast<char> (num));
 
     return encodeString.str();
 }
@@ -163,7 +166,7 @@ auto_ptr<pair<string, string> > GPolyEncoder::encode(vector<pair<double,double> 
  * terms of a logarithm, but this approach makes it a bit easier to ensure
  * that the level is not too large.
  */
-int GPolyEncoder::computeLevel(double absMaxDist) {
+int GPolyEncoder::computeLevel(const double absMaxDist) const {
     int lev = 0;
     if (absMaxDist > threshold) {
         while (absMaxDist < zoomLevelBreaks[lev]) {

@@ -57,7 +57,7 @@ int main(int argc, const char* argv[]) {
     t0 = clock();
     enc = pe->dpEncode(trk);
     t1 = clock();
-    cout << ((double) (t1 - t0)) / CLOCKS_PER_SEC << "s" << endl;
+    cout << (static_cast<double> (t1 - t0)) / CLOCKS_PER_SEC << "s" << endl;
 
     if (argc >= 2 && string(argv[1]) == "-v") {
         cout << '"' << replace_slashes(enc->first) << '"' << endl << '"' << enc->second << '"' << endl;
