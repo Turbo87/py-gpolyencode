@@ -5,17 +5,17 @@ try:
 except:
     from distutils.core import setup, Extension
 
-setup(name='cGPolyEncode',
-    version='0.1.1',
-    description="Google Maps Polyline encoding (C++ extension)",
-    long_description="Encode line & polygon coordinates for use in Google Maps.",
-    author='Robert Coup',
-    author_email='robert.coup@koordinates.com',
-    provides=['cgpolyencode'],
+setup(name='SkyLinesPolyEncode',
+    version='0.1',
+    description="SkyLines Polyline encoding (C++ extension)",
+    long_description="Multidimensional encoding of line & polygon coordinates for use in SkyLines. Based on cGPolyEncode by Robert Coup <robert.coup@koordinates.com>",
+    author='Tobias Lohner',
+    author_email='tobias@lohner-net.de',
+    provides=['skylinespolyencode'],
     keywords='gis,geospatial,google-maps,gmaps,mapping',
-    url='http://code.google.com/p/py-gpolyencode/',
+    url='http://github.com/TobiasLohner/py-skylinespolyencode/',
     ext_modules=[
-        Extension("cgpolyencode", ["gpolyencode_py.cpp", "GPolyEncoder.cpp"]),
+        Extension("skylinespolyencode", ["skylinespolyencode_py.cpp", "SkyLinesPolyEncoder.cpp"]),
     ],
     classifiers=[
         'Development Status :: 4 - Beta',
